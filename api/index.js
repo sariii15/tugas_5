@@ -109,6 +109,9 @@ app.post("/api/mahasiswa", async (req, res) => {
   );
   res.send("Mahasiswa berhasil ditambahkan.");
 });
+const salt = await bcrypt.genSalt(10);
+const hash = await bcrypt.hash("bunga", salt);
+console.log(hash);
 
 // edit
 app.put("/api/mahasiswa/:id", async (req, res) => {
@@ -129,6 +132,11 @@ app.delete("/api/mahasiswa/:id", async (req, res) => {
 app.get("/api/pelatihan", async (_req, res) => {
   const results = await client.query("SELECT * FROM pelatihan");
   res.json(results.rows);
+});
+
+app.post("/api/keluar", (req, res) => {
+  res.clearCookie(`${req.body.token}`);
+  res.redirect("/login");
 });
 
 app.listen(3000, () => {

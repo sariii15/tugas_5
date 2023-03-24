@@ -16,6 +16,9 @@
       </thead>
       <tbody></tbody>
     </table>
+    <form action="" name="keluar" class="kel">
+      <button>Keluar</button>
+    </form>
     <script>
       const nama = document.querySelector("span");
 
@@ -41,6 +44,20 @@
             tbody.appendChild(tr);
           });
         });
+        document.keluar.onsubmit = async  (e) => {
+        e.preventDefault();
+        await  fetch("/api/keluar",{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            token:"token"
+          })
+        });
+        location.href = "/";
+      }
+
     </script>
   </body>
 </html>
